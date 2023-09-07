@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <div class="sidebar-top">
+            <img src="../static/library.png" alt="Profile Image" class="profile-image">
+        </div>
+
+        <ul class="menu">
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="toggle-dropdown">Books</a>
+                <ul class="dropdown-content">
+                    <li><a href="/">All Book</a></li>
+                    <li><a href="/load_add_book">Add Book</a></li>
+                    <li><a href="/load_remove_book">Remove Book</a></li>
+                    <li><a href="/load_update_book">Update Book</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="toggle-dropdown">Members</a>
+                <ul class="dropdown-content">
+                    <li><a href="/members_table">All Members</a></li>
+                    <li><a href="/load_add_member">Add Member</a></li>
+                    <li><a href="/load_remove_member">Remove Member</a></li>
+                    <li><a href="/load_update_member">Update Member</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="toggle-dropdown">Transactions</a>
+                <ul class="dropdown-content">
+                    <li><a href="/transaction_table">All Transactions</a></li>
+                    <li><a href="/load_issue_member">Issue a Book</a></li>
+                    <li><a href="/load_return_book">Return a Book</a></li>
+                </ul>
+            </li>
+            <li><a href="/load_search_frappe_books">Import From Frappe</a></li>
+        </ul>
+    </div>
+
+
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Header Section -->
+        <header class="header-section">
+            <h1>Issue Book</h1>
+        </header>
+
+        <!-- Middle Section with Lorem Ipsum Content -->
+        <section class="middle-section">
+            <form id="addBookForm" action = '/issue_book' method="post">
+
+                <div class="form-group">
+                    <label for="bookName">Book Name:</label>
+                    <select id="bookName" name="bookName" required>
+                        <option value="" disabled selected>Select a Book</option>
+                        {% for item in books_data %}
+                        <option value="{{ item[0] }}">{{ item[0] }}</option>
+                        {% endfor %}
+                        
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberName">Member Name:</label>
+                    <select id="memberName" name="memberName" required>
+                        <option value="" disabled selected>Select a Member</option>
+                        {% for item in members_data %}
+                        <option value="{{ item[0] }}">{{ item[0] }}</option>
+                        {% endfor %}
+                        
+                    </select>
+                </div>
+                
+                <button type="submit">ssue Book</button>
+            </form>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="footer-section">
+            <p> @Copyrights 2023 HumptyDumpty Library</p>
+        </footer>
+    </div>
+
+
+
+    <!-- Add any JavaScript scripts here -->
+    <script src="../static/scripts.js"></script>
+</body>
+
+</html>

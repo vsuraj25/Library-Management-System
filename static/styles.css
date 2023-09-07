@@ -1,0 +1,260 @@
+/* Sidebar styles */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000000; /* Sidebar gradient background (black to gray) */
+    overflow-x: hidden;
+    padding-top: 20px;
+    font-family: 'Arial', sans-serif; /* Custom font */
+    justify-content: center;
+}
+
+.sidebar a {
+    padding: 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.sidebar a:hover {
+    background-color: #555;
+}
+
+/* Sidebar top section styles */
+.sidebar-top {
+    text-align: center;
+    background-color: #000000; /* Background color for the top section */
+    padding: 20px;
+}
+
+/* Profile image styles */
+.profile-image {
+    width: 100px; /* Set the width of your image */
+    height: 100px; /* Set the height of your image */
+    border-radius: 50%; /* Make the image rounded */
+    border: 3px solid #fff; /* Add a white border around the image (optional) */
+    display: block;
+    margin: 0 auto; /* Center the image horizontally */
+}
+
+/* Adjustments for the sliding down collapsible effect */
+.menu {
+    list-style: none;
+    padding: 0;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: block; /* Set initial display to block */
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    overflow: hidden; /* Hide content overflow */
+    max-height: 0; /* Hide content by default */
+    transition: max-height 0.3s ease-in-out;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Style the dropdown button (Books, Members, Transactions) */
+.menu .toggle-dropdown {
+    background-color: #000000;
+    color: white;
+    padding: 16px;
+    font-size: 18px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* Remove default button styles */
+.menu .toggle-dropdown:focus {
+    outline: none;
+}
+
+
+/* Content styles */
+.content {
+    margin-left: 270px; /* Adjust this value to match your sidebar width */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #4CAF50, #2196F3); /* Content gradient background (back to the initial one) */
+    font-family: 'Arial', sans-serif; /* Custom font */
+}
+
+/* Header Section */
+.header-section {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: white;
+    padding: 20px;
+    font-size: 24px; /* Larger font size */
+}
+
+/* Middle Section */
+.middle-section {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Box shadow */
+}
+
+/* Footer Section */
+.footer-section {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px; /* Smaller font size */
+}
+
+/* Style for the form */
+#addBookForm, #filterForm {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Adjust the width of the category select */
+.form-group select {
+    width: 100%; /* Make the select element take the full width of its container */
+    padding: 10px; /* Add padding for consistent spacing */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Apply styles to the form */
+.form-style {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+/* Apply styles to labels */
+.form-style label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Apply styles to select elements */
+.form-style select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Apply styles to text input */
+.form-style input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Apply styles to the submit button */
+.form-style input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Apply hover effect to the submit button */
+.form-style input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+/* Style the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+/* Style table headers */
+table th {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Style table rows */
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Style table cells */
+table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+/* Add hover effect to rows */
+table tr:hover {
+    background-color: #ddd;
+}
+
