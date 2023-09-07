@@ -3,3 +3,4 @@ gunicorn
 Jinja2
 psycopg2
 requests
+dotenv
