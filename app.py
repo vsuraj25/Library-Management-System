@@ -4,6 +4,7 @@ import psycopg2
 from psycopg2 import sql
 import requests
 from dotenv import load_dotenv
+from exceptions import TooMuchDebt, NoBooksFoundFrappe
 
 # Load .env file    
 load_dotenv()
@@ -12,16 +13,6 @@ webapp_root = 'webapp'
 
 static_dir_path = os.path.join(webapp_root, 'static')
 template_dir_path = os.path.join(webapp_root, 'templates')
-
-class TooMuchDebt(Exception):
-    def __init__(self, message = "The given members debt is already around 500! More debt cannot be allowed, please clear the debth to rent his book."):
-        self.message = message
-        super().__init__(self.message)
-
-class NoBooksFoundFrappe(Exception):
-    def __init__(self, message = "Sorry, but no books were found from that search!"):
-        self.message = message
-        super().__init__(self.message)
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET_KEY")
@@ -127,19 +118,6 @@ def add_book():
     conn = db_conn()
     cur = conn.cursor()
 
-    # cur.execute(
-    # '''DROP TABLE books_data;''')
-
-    # cur.execute(
-    # '''CREATE TABLE IF NOT EXISTS books_data(id SERIAL,
-    #         book_name TEXT NOT NULL PRIMARY KEY,
-    #         author_name TEXT,
-    #         publisher_name TEXT,
-    #         num_pages INT,
-    #         stock INT DEFAULT 1,
-    #         rent_fee INT DEFAULT 100,
-    #         registered_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP);''')
-
     book_name = request.form['bookName']
     author_name = request.form['authorName']
     publisher_name = request.form['publisherName']
@@ -200,9 +178,6 @@ def update_book():
 def add_member():
     conn = db_conn()
     cur = conn.cursor()
-
-    # cur.execute(
-    # '''DROP TABLE books_data;''')
 
     cur.execute(
     '''CREATE TABLE IF NOT EXISTS members_data(id SERIAL,
@@ -286,19 +261,16 @@ def issue_book():
     except Exception as e:
         raise e
 
-
-    # cur.execute('''DROP TABLE transaction_data;''')
-
-    # cur.execute('''CREATE TABLE IF NOT EXISTS transaction_data(issue_id SERIAL PRIMARY KEY,
-    #         member_name TEXT NOT NULL,
-    #         book_name TEXT NOT NULL,
-    #         phone TEXT,
-    #         rent INT,
-    #         payment_status BOOLEAN DEFAULT FALSE,
-    #         issue_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    #         returned BOOLEAN DEFAULT FALSE,
-    #         return_date TIMESTAMP WITH TIME ZONE 
-    #         );''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS transaction_data(issue_id SERIAL PRIMARY KEY,
+            member_name TEXT NOT NULL,
+            book_name TEXT NOT NULL,
+            phone TEXT,
+            rent INT,
+            payment_status BOOLEAN DEFAULT FALSE,
+            issue_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+            returned BOOLEAN DEFAULT FALSE,
+            return_date TIMESTAMP WITH TIME ZONE 
+            );''')
     cur.execute(
             f'''INSERT INTO transaction_data(member_name, book_name, phone, rent)
                 VALUES
@@ -332,23 +304,6 @@ def return_book():
             WHERE issue_id = '{issue_id}';'''
         )
 
-    # cur.execute('''DROP TABLE transaction_data;''')
-
-    # cur.execute('''CREATE TABLE IF NOT EXISTS transaction_data(issue_id SERIAL PRIMARY KEY,
-    #         member_name TEXT NOT NULL,
-    #         book_name TEXT NOT NULL,
-    #         phone TEXT,
-    #         rent INT,
-    #         payment_status BOOLEAN DEFAULT FALSE,
-    #         issue_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    #         returned BOOLEAN DEFAULT FALSE,
-    #         return_date TIMESTAMP WITH TIME ZONE 
-    #         );''')
-    # cur.execute(
-    #         f'''INSERT INTO transaction_data(member_name, book_name, phone, rent)
-    #             VALUES
-    #             ('{member_name}','{book_name}', '{phone}', '{rent}');'''
-    #         )
     conn.commit()
     cur.close()
     conn.close()
@@ -375,8 +330,6 @@ def import_frappe_data():
         cur = conn.cursor()
         for book in data:
             try:
-                # cleaned_data = [f'{sql.Literal(item)}' if isinstance(item, str) else item for item in book]
-                # print(cleaned_data)
                 cur.execute(
                     f'''INSERT INTO books_data(book_name, author_name, publisher_name, num_pages)
                         VALUES

@@ -1,0 +1,13 @@
+
+    # cur.execute(
+    # '''DROP TABLE books_data;''')
+
+    # cur.execute(
+    # '''CREATE TABLE IF NOT EXISTS books_data(id SERIAL,
+    #         book_name TEXT NOT NULL PRIMARY KEY,
+    #         author_name TEXT,
+    #         publisher_name TEXT,
+    #         num_pages INT,
+    #         stock INT DEFAULT 1,
+    #         rent_fee INT DEFAULT 100,
+    #         registered_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP);''')
