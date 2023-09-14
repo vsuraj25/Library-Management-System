@@ -255,13 +255,10 @@ def issue_book():
         total_rent = cur.fetchall()
         if len(total_rent) >= 1:
             list_of_rents = [tup[0] for tup in total_rent]
-        if sum(list_of_rents) + rent >= 500:
-            return render_template("404.html", custom_error = TooMuchDebt().message)
-        conn.commit()
-    except Exception as e:
-        raise e
-
-    cur.execute('''CREATE TABLE IF NOT EXISTS transaction_data(issue_id SERIAL PRIMARY KEY,
+            if sum(list_of_rents) + rent >= 500:
+                return render_template("404.html", custom_error = TooMuchDebt().message)
+            
+        cur.execute('''CREATE TABLE IF NOT EXISTS transaction_data(issue_id SERIAL PRIMARY KEY,
             member_name TEXT NOT NULL,
             book_name TEXT NOT NULL,
             phone TEXT,
@@ -271,15 +268,19 @@ def issue_book():
             returned BOOLEAN DEFAULT FALSE,
             return_date TIMESTAMP WITH TIME ZONE 
             );''')
-    cur.execute(
-            f'''INSERT INTO transaction_data(member_name, book_name, phone, rent)
-                VALUES
-                ('{member_name}','{book_name}', '{phone}', '{rent}');'''
-            )
-    conn.commit()
-    cur.close()
-    conn.close()
-    return render_template('transaction_table.html', data = load_transaction_table())
+        cur.execute(
+                f'''INSERT INTO transaction_data(member_name, book_name, phone, rent)
+                    VALUES
+                    ('{member_name}','{book_name}', '{phone}', '{rent}');'''
+                )
+        conn.commit()
+        cur.close()
+        conn.close()
+        return render_template('transaction_table.html', data = load_transaction_table())
+    except Exception as e:
+        raise e
+
+    
 
 @app.route('/return_book', methods=["POST", "GET"])   
 def return_book():
