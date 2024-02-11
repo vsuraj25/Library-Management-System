@@ -28,6 +28,25 @@ def db_conn():
 def load_book_table():
     conn = db_conn()
     cur  = conn.cursor()
+    cur.execute(
+    '''CREATE TABLE IF NOT EXISTS books_data(id SERIAL,
+            book_name TEXT NOT NULL PRIMARY KEY,
+            author_name TEXT,
+            publisher_name TEXT,
+            num_pages INT,
+            stock INT DEFAULT 1,
+            rent_fee INT DEFAULT 100,
+            registered_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP);''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS transaction_data(issue_id SERIAL PRIMARY KEY,
+        member_name TEXT NOT NULL,
+        book_name TEXT NOT NULL,
+        phone TEXT,
+        rent INT,
+        payment_status BOOLEAN DEFAULT FALSE,
+        issue_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        returned BOOLEAN DEFAULT FALSE,
+        return_date TIMESTAMP WITH TIME ZONE 
+        );''')
     cur.execute('''SELECT * FROM books_data ORDER BY registered_date DESC;''')
     data = cur.fetchall()
     conn.commit()
